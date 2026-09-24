@@ -1,0 +1,51 @@
+# ------------------------------------------------------------------------------------
+# ArgoCD Application Definition: MetalLB
+# This file tells ArgoCD to install MetalLB using the official Helm chart.
+# ------------------------------------------------------------------------------------
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb-controller
+  namespace: argocd # ArgoCD applications are often managed in the argocd namespace
+spec:
+  project: default
+  source:
+    repoURL: https://metallb.github.io/metallb # Official MetalLB Helm repository
+    targetRevision: 2.11.0 # Pin to a stable version
+    chart: metallb
+    helm:
+      values:
+        - ./metallb/values.yaml # Points to the custom IP pool configuration we defined
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+# ------------------------------------------------------------------------------------
+# ArgoCD Application Definition: Traefik Ingress Controller
+# This file tells ArgoCD to install Traefik using the official Helm chart.
+# ------------------------------------------------------------------------------------
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik-ingress
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://traefik.github.io/charts # Official Traefik Helm repository
+    targetRevision: "latest" # Use the latest stable release
+    chart: traefik
+    helm:
+      values:
+        - ./traefik/values.yaml # Points to our custom Traefik configuration
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

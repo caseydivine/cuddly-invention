@@ -1,0 +1,29 @@
+# traefik-values.yaml
+# Configuration for Traefik Ingress Controller.
+# Adjust these settings as needed for your local testing environment.
+
+# Example: Setting up dashboard access
+dashboard:
+  enabled: true
+  ingress:
+    enabled: true
+    entryPoint: web
+    host: traefik-dashboard.local
+
+# Example: Enabling basic service discovery (if required)
+# providers:
+#   kubernetesIngress:
+#     enabled: true
+# ...
+
+# ArgoCD Ingress Configuration
+argocd:
+  enabled: true
+  ingress:
+    enabled: true
+    entryPoint: web # Use the same entry point as the dashboard
+    host: argocd.local # A clean hostname for the local setup
+    tls:
+      certResolver: letsencrypt # Or disable if self-signed certs are preferred for local testing
+    serviceName: argocd-server # Assuming standard name
+    servicePort: 80

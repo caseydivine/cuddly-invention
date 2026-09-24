@@ -1,0 +1,25 @@
+# ------------------------------------------------------------------------------------
+# ArgoCD Application Definition: Traefik Ingress Controller
+# This file tells ArgoCD to install Traefik using the official Helm chart.
+# ------------------------------------------------------------------------------------
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik-ingress
+  namespace: argocd # ArgoCD applications are often managed in the argocd namespace
+spec:
+  project: default
+  source:
+    repoURL: https://traefik.github.io/charts # Official Traefik Helm repository
+    targetRevision: "latest" # Use the latest stable release
+    chart: traefik
+    helm:
+      values:
+        - ./traefik/values.yaml # Points to our custom Traefik configuration
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -1,0 +1,22 @@
+# app-of-apps-definition.yaml
+# This is the primary ArgoCD Application definition that orchestrates the deployment
+# of all components (MetalLB, Traefik, and your custom applications).
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-k3s-stack
+  namespace: argocd # Assuming ArgoCD runs in the argocd namespace
+spec:
+  project: default
+  source:
+    repoURL: "file://localk3s/apps/app_of_apps" # Points ArgoCD to our local directory structure
+    targetRevision: HEAD
+    path: . # The path within the directory containing the component definitions
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default # All services will initially deploy to the default namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
