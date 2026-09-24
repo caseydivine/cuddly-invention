@@ -10,12 +10,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://traefik.github.io/charts # Official Traefik Helm repository
+    repoURL: https://github.com/caseydivine/cuddly-invention
     targetRevision: "latest" # Use the latest stable release
-    chart: traefik
-    helm:
-      valuesFiles:
-        - traefik/values.yaml # Fixed: changed 'values' to 'valuesFiles'
+    path: app_of_apps/traefik
   destination:
     server: https://kubernetes.default.svc
     namespace: default
