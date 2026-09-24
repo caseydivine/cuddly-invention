@@ -14,8 +14,8 @@ spec:
     targetRevision: "latest" # Use the latest stable release
     chart: traefik
     helm:
-      values:
-        - ./traefik/values.yaml # Points to our custom Traefik configuration
+      valuesFiles:
+        - traefik/values.yaml # Fixed: changed 'values' to 'valuesFiles'
   destination:
     server: https://kubernetes.default.svc
     namespace: default
