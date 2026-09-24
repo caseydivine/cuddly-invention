@@ -10,9 +10,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "file://localk3s/apps/app_of_apps" # Points ArgoCD to our local directory structure
+    repoURL: https://github.com/caseydivine/cuddly-invention
     targetRevision: HEAD
-    path: . # The path within the directory containing the component definitions
+    path: app_of_apps # The path within the directory containing the component definitions
   destination:
     server: https://kubernetes.default.svc
     namespace: default # All services will initially deploy to the default namespace
