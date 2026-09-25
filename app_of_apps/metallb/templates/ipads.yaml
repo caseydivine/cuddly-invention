@@ -1,0 +1,9 @@
+kind: L2Advertisement
+metadata:
+  name: default-l2-advertisement
+  namespace: default
+spec:
+  # Referencing specific pools is optional
+  # If omitted, this advertisement applies to all pools
+  ipAddressPools:
+    - production-pool
