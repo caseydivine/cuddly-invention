@@ -2,7 +2,7 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: production-pool
-  namespace: metallb-system
+  namespace: default
 spec:
   addresses:
     # A range of IPs available for MetalLB to assign
