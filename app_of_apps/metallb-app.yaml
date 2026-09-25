@@ -10,12 +10,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://metallb.github.io/metallb # Official MetalLB Helm repository
-    targetRevision: 2.11.0 # Pin to a stable version
-    chart: metallb
-    helm:
-      valuesFiles:
-        - metallb/values.yaml # Fixed: changed 'values' to 'valuesFiles'
+    path: app_of_apps/metallb
+    repoURL: https://github.com/caseydivine/cuddly-invention
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: default
@@ -24,28 +21,3 @@ spec:
       prune: true
       selfHeal: true
 
-# ------------------------------------------------------------------------------------
-# ArgoCD Application Definition: Traefik Ingress Controller
-# This file tells ArgoCD to install Traefik using the official Helm chart.
-# ------------------------------------------------------------------------------------
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: traefik-ingress
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://traefik.github.io/charts # Official Traefik Helm repository
-    targetRevision: "latest" # Use the latest stable release
-    chart: traefik
-    helm:
-      valuesFiles:
-        - traefik/values.yaml # Fixed: changed 'values' to 'valuesFiles'
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
