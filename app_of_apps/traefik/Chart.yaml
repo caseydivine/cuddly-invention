@@ -1,16 +1,11 @@
 apiVersion: v2
-name: traefik
-description: A Traefik based Kubernetes ingress controller
+name: metallb-local
+description: minimalchart
 type: application
-version: 41.6.0
-# renovate: image=traefik
-appVersion: v3.7.13
-kubeVersion: '>=1.25.0-0'
-keywords:
-  - traefik
-  - ingress
-  - networking
-home: https://traefik.io/
-sources:
-  - https://github.com/traefik/traefik-helm-chart
-  - https://github.com/traefik/traefik
+version: 0.1.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: traefik
+    version: 41.6.0
+    repository: https://traefik.github.io/charts
